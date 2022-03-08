@@ -1,0 +1,37 @@
+*{
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+}
+
+main{
+   display: flex;
+   flex-direction: row;
+   margin: 5rem 10rem;
+}
+
+.input{
+
+   background-color: rgb(228, 171, 237);
+
+   display: flex;
+   flex-direction: column;
+   width: 50%;
+   height: 500px;
+
+   margin: 0 2rem ;
+   padding: 2rem;
+
+
+}
+.input__form{
+   display: flex;
+   flex-direction: column;
+}
+.output{
+   background-color: rgb(225, 167, 146);
+   width: 50%;
+   height: 500px;
+   padding: 2rem;
+
+}

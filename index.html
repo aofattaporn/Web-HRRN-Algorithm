@@ -6,7 +6,13 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>HRRM</title>
 
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
    <link rel="stylesheet" href="hrrm.css">
+
+   <script src="hrrm.js" defer></script>
+
+   
 </head>
 <body>
 
@@ -18,19 +24,19 @@
    
          <form action="#" class="input__form">
 
-            <label for="">number</label>
-            <select name="" id="">
+            <label for="">Algorithm</label>
+            <select name="" id="" class="input__form__input">
                <option value="">HRRN</option>
                <option value="">HRRN RRB</option>
             </select>
             
-            <label for="">number</label>
-            <input type="text">
+            <label for="">Arrival Times</label>
+            <input type="text" id = "ArrivalTimes" class="input__form__input" placeholder="e.g. 0 2 4 6">
    
-            <label for="">number</label>
-            <input type="text">
+            <label for="">Burst Times</label>
+            <input type="text" id="BurstTimes" class="input__form__input" placeholder="e.g. 2 4 6 8 19">
    
-            <button>submit</button>
+            <button class="input__form__button" onclick="getData()"> Solve </button>
    
          </form>
    
@@ -39,11 +45,7 @@
       </div>
    
       <div class="output">
-   
          <h1>Output</h1>
-
-
-   
       </div>
    </main>
 

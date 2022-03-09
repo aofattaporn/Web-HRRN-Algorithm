@@ -6,8 +6,7 @@ let sum_bt = 0;
 const c = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 const arrival = [], burst = [];
 let avgtt = 0;
-let avgwt = 0;
-
+let avgwt = 0, i = 0;
 
 function getData(){
 
@@ -49,72 +48,91 @@ function getData(){
       sum_bt += burst[i];
    }
 
-   console.log(hrrn);
-
    // sort by at 
    hrrn.sort((a, b) => {
       return a.at - b.at
    });
 
-
-   console.log(hrrn);
+   let time = hrrn[0].at;
+   // Set lower limit to response ratio 
+   let hrr = -9999;
+   let x = 0, loc =0;
 
    // Response Ratio = (W + S)/S
-   for(let t = hrrn[0].at; t < sum_bt;){
+   while(time < sum_bt + hrrn[0].at){
       
-      // set lower limit hrr 
-      let hrr = -9999; 
-
-      // Response Ratio Variable
-      let temp = 0; 
-
-      // Variable to store next process selected
-      let loc = 0;
 
       for(let i = 0; i < n; i++){
 
          // Checking if process has arrived and is Incomplete
-         if(hrrn[i].at <= t && hrrn[i].completed != 1){
+         if(hrrn[i].at <= time && hrrn[i].completed != 1){
 
-            // Calculating Response Ratio
-            temp = (hrrn[i].bt + (t - hrrn.at)) / hrrn[i].bt;
+            // Calculating Response Ratio 
+            x = ((hrrn[i].bt + (time - hrrn[i].at)) / hrrn[i].bt);
 
-            // Checking for Highest Response Ratio
-            if(hrr < temp){
+            // hecking for Highest Response Ratio 
+            if(hrr < x){
 
-               // Storing Response Ratio
-               hrr = temp;
+               // Storing Response Ratio  
+               hrr = x;
 
                // Storing Location
                loc = i;
+
             }
          }
       }
-      
-      // Updating time value
-      t += hrrn[loc].bt;
-
-      // Calculation of waiting time
-      hrrn[loc].wt = t - hrrn[loc].at - hrrn[loc].bt;
-
-      // Calculation of Turn Around Time
-      hrrn[loc].tt = t - hrrn[loc].at;
-
-      // Sum Turn Around Time for average
-      avgtt += hrrn[loc].tt;
-
-      // Calculation of Normalized Turn Around Time
-      hrrn[loc].ntt = (hrrn[loc].tt / hrrn[loc].bt);
 
 
-      // Updating Completion Status
+      // Updating time value 
+      time += hrrn[loc].bt
+
+      // Calculation of waiting time 
+      hrrn[loc].wt = time - hrrn[loc].at - hrrn[loc].bt;
+
+      // Calculation of Turn Around Time 
+      hrrn[loc].tt = time - hrrn[loc].at;
+
       hrrn[loc].completed = 1;
 
-      avgwt += hrrn[loc].wt;
-      
+
    }
 
    console.log(hrrn);
+   
+
+   // creat 
+
+   let table = document.getElementById("table").style.display = "block"; 
+
+
+   for(let i = 0; i < n; i++){
+
+
+      const tr = document.createElement("tr");
+      const td_name = document.createElement("td");
+      const td_at = document.createElement("td");
+      const td_bt = document.createElement("td");
+      const td_tt = document.createElement("td");
+      const td_wt = document.createElement("td");
+
+      const tbody = document.getElementById("tbody").appendChild(tr);
+
+      td_name.textContent = hrrn[i].name;
+      td_at.textContent = hrrn[i].at;
+      td_bt.textContent = hrrn[i].bt;
+      td_tt.textContent = hrrn[i].tt;
+      td_wt.textContent = hrrn[i].wt;
+
+      tr.appendChild(td_name);
+      tr.appendChild(td_at);
+      tr.appendChild(td_bt);
+      tr.appendChild(td_tt);
+      tr.appendChild(td_wt);
+
+
+   }
+
 
 
 }

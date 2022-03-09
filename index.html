@@ -39,13 +39,33 @@
             <button class="input__form__button" onclick="getData()"> Solve </button>
    
          </form>
-   
-   
-   
+         
       </div>
    
       <div class="output">
          <h1>Output</h1>
+         
+         <table id = 'table' class="table" style="display: none;">
+
+            <!-- table head -->
+            <thead>
+               <tr>
+                  <th>Process</th>
+                  <th>Arrival Time</th>
+                  <th>Burst Time</th>
+                  <th>Turn around Time</th>
+                  <th>Waiting Time</th>
+               </tr>
+            </thead>
+
+            <!-- table body -->
+            <tbody id="tbody">
+               <tr>
+
+               </tr>
+            </tbody>
+
+         </table>
       </div>
    </main>
 

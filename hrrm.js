@@ -1,6 +1,3 @@
-
-
-
 let hrrn = []
 let sum_bt = 0;
 const c = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
@@ -37,6 +34,7 @@ function getData(){
          name: c[i],
          at: arrival[i],
          bt: burst[i],
+         ct: 0,
          wt: 0,
          tt: 0,
          completed: 0
@@ -87,6 +85,8 @@ function getData(){
       // Updating time value 
       time += hrrn[loc].bt
 
+      hrrn[loc].ct = time;
+
       // Calculation of waiting time 
       hrrn[loc].wt = time - hrrn[loc].at - hrrn[loc].bt;
 
@@ -95,16 +95,12 @@ function getData(){
 
       hrrn[loc].completed = 1;
 
-
    }
-
-   console.log(hrrn);
    
 
-   // creat 
+   // creat table to display 
 
    let table = document.getElementById("table").style.display = "block"; 
-
 
    for(let i = 0; i < n; i++){
 
@@ -113,6 +109,7 @@ function getData(){
       const td_name = document.createElement("td");
       const td_at = document.createElement("td");
       const td_bt = document.createElement("td");
+      const td_ct = document.createElement("td");
       const td_tt = document.createElement("td");
       const td_wt = document.createElement("td");
 
@@ -121,12 +118,14 @@ function getData(){
       td_name.textContent = hrrn[i].name;
       td_at.textContent = hrrn[i].at;
       td_bt.textContent = hrrn[i].bt;
+      td_ct.textContent = hrrn[i].ct;
       td_tt.textContent = hrrn[i].tt;
       td_wt.textContent = hrrn[i].wt;
 
       tr.appendChild(td_name);
       tr.appendChild(td_at);
       tr.appendChild(td_bt);
+      tr.appendChild(td_ct);
       tr.appendChild(td_tt);
       tr.appendChild(td_wt);
 
@@ -136,8 +135,3 @@ function getData(){
 
 
 }
-
-
-
-
-

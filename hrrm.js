@@ -3,53 +3,11 @@ const c = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 const arrival = [], burst = [];
 let sum_bt = 0, avgtt = 0, avgwt = 0, i = 0, n = 0;
 
-function getData(){
 
 
-   const arrivalString = document.getElementById("ArrivalTimes").value;
-   const BurstString = document.getElementById("BurstTimes").value;
+function HRRN(time, sum_bt, hrrn){
 
-   const arrival = arrivalString.split(' ').map(function(item) {
-      return parseInt(item, 10);
-   });
-
-   const burst = BurstString.split(' ').map(function(item) {
-      return parseInt(item, 10);
-   });
-
-   console.log(arrival);
-   console.log(burst);
-
-   // check length 
-   const n = burst.reduce((sum,number) => {
-      return number++;
-    }, 0)
-
-   // Initail process burst time 
-   for (let i = 0; i < n; i++) {
-
-      temp = {
-         name: c[i],
-         at: arrival[i],
-         bt: burst[i],
-         ct: 0,
-         wt: 0,
-         tt: 0,
-         completed: 0
-      }
-   
-      hrrn.push(temp);
-   
-      // Variable for sum of all Burst Times
-      sum_bt += burst[i];
-   }
-
-   // sort by at 
-   hrrn.sort((a, b) => {
-      return a.at - b.at
-   });
-
-   let time = hrrn[0].at;
+   // let time = hrrn[0].at;
    // Set lower limit to response ratio 
    let hrr = -9999;
    let x = 0, loc =0;
@@ -94,14 +52,7 @@ function getData(){
       hrrn[loc].completed = 1;
 
    }
-
-   createTable(n);
-   
-
-
-
 }
-
 
 function createTable(n){
       // creat table to display 
@@ -137,4 +88,204 @@ function createTable(n){
    
    
       }
+}
+
+function getData(){
+
+   const arrivalString = document.getElementById("ArrivalTimes").value;
+   const BurstString = document.getElementById("BurstTimes").value;
+
+   const arrival = arrivalString.split(' ').map(function(item) {
+      return parseInt(item, 10);
+   });
+
+   const burst = BurstString.split(' ').map(function(item) {
+      return parseInt(item, 10);
+   });
+
+   // check length 
+   const n = burst.reduce((sum,number) => {
+      return number++;
+    }, 0)
+
+   // Initail process burst time 
+   for (let i = 0; i < n; i++) {
+
+      temp = {
+         name: c[i],
+         at: arrival[i],
+         bt: burst[i],
+         ct: 0,
+         wt: 0,
+         tt: 0,
+         completed: 0
+      }
+   
+      hrrn.push(temp);
+   
+      // Variable for sum of all Burst Times
+      sum_bt += burst[i];
+   }
+
+   // sort by at 
+   hrrn.sort((a, b) => {
+      return a.at - b.at
+   });
+
+   let time = hrrn[0].at;
+   // Set lower limit to response ratio 
+   let hrr = -9999;
+   let x = 0, loc =0;
+
+   // Response Ratio = (W + S)/S
+   while(time < sum_bt + hrrn[0].at){
+
+      // select next process 
+      for(let i = 0; i < n; i++){
+
+         // Checking if process has arrived and is Incomplete
+         if(hrrn[i].at <= time && hrrn[i].completed != 1){
+
+            // Calculating Response Ratio 
+            x = ((hrrn[i].bt + (time - hrrn[i].at)) / hrrn[i].bt);
+
+            // hecking for Highest Response Ratio 
+            if(hrr < x){
+
+               // Storing Response Ratio  
+               hrr = x;
+
+               // Storing Location
+               loc = i;
+
+            }
+         }
+      }
+
+
+      // Updating time value 
+      time += hrrn[loc].bt
+
+
+      // Calculation of waiting time 
+      hrrn[loc].wt = time - hrrn[loc].at - hrrn[loc].bt;
+
+      // Calculation of Turn Around Time 
+      hrrn[loc].tt = time - hrrn[loc].at;
+
+      hrrn[loc].completed = 1;
+
+   }
+
+   // create html table
+   
+   createTable(n);
+
+
+}
+
+function getData2(){
+
+   const arrivalString = document.getElementById("ArrivalTimes").value;
+   const BurstString = document.getElementById("BurstTimes").value;
+
+   const arrival = arrivalString.split(' ').map(function(item) {
+      return parseInt(item, 10);
+   });
+
+   const burst = BurstString.split(' ').map(function(item) {
+      return parseInt(item, 10);
+   });
+
+   // check length 
+   const n = burst.reduce((sum,number) => {
+      return number++;
+    }, 0)
+
+   // Initail process burst time 
+   for (let i = 0; i < n; i++) {
+
+      temp = {
+         name: c[i],
+         at: arrival[i],
+         bt: burst[i],
+         ct: 0,
+         wt: 0,
+         tt: 0,
+         count: 0,
+         completed: 0
+      }
+
+      hrrn.push(temp);
+      
+      // Variable for sum of all Burst Times
+      sum_bt += burst[i];
+   }
+
+   // sort by at 
+   hrrn.sort((a, b) => {
+      return a.at - b.at
+   });
+
+   let time = hrrn[0].at;
+
+   // Set lower limit to response ratio 
+   let hrr = -9999;
+   let x = 0, loc =0;
+
+   // Response Ratio = (W + S)/S
+   while(time < sum_bt + hrrn[0].at){
+
+      // select next process 
+      for(let i = 0; i < n; i++){
+
+         // Checking if process has arrived and is Incomplete
+         if(hrrn[i].at <= time && hrrn[i].completed != 1){
+
+            // Calculating Response Ratio 
+            x = ((hrrn[i].bt + (time - hrrn[i].at)) / hrrn[i].bt);
+
+            // hecking for Highest Response Ratio 
+            if(hrr < x){
+
+               // Storing Response Ratio  
+               hrr = x;
+
+               // Storing Location
+               loc = i;
+
+            }
+         }
+
+      }
+
+      let count = 0;
+      while(count <= 5 && hrrn[loc].completed != 1){
+
+         // Updating time value 
+         time += 1
+
+         hrrn[loc].ct = time;
+
+         hrrn[loc].count++;
+
+         // Calculation of waiting time 
+         hrrn[loc].wt = time - hrrn[loc].at - hrrn[loc].bt;
+
+         // Calculation of Turn Around Time 
+         hrrn[loc].tt = time - hrrn[loc].at;
+
+         if(hrrn[loc].bt ==  hrrn[loc].count){
+            hrrn[loc].completed = 1;
+         }
+         count++;
+      }
+
+   }
+
+   // create html table
+   
+   createTable(n);
+
+
 }

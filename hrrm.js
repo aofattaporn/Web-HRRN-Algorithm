@@ -3,8 +3,6 @@ const c = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 const arrival = [], burst = [];
 let sum_bt = 0, avgtt = 0, avgwt = 0, i = 0, n = 0;
 
-
-
 function HRRN(time, sum_bt, hrrn){
 
    // let time = hrrn[0].at;
@@ -61,7 +59,6 @@ function createTable(n){
 
       for(let i = 0; i < n; i++){
    
-   
          const tr = document.createElement("tr");
          const td_name = document.createElement("td");
          const td_at = document.createElement("td");
@@ -86,11 +83,23 @@ function createTable(n){
          tr.appendChild(td_tt);
          tr.appendChild(td_wt);
    
-   
       }
 }
 
+function clearTable(){
+   // creat table to display 
+
+   document.getElementById("tbody").innerHTML = "";
+
+   hrrn = []
+   sum_bt = 0, avgtt = 0, avgwt = 0, i = 0, n = 0;
+
+}
+
 function getData(){
+
+   // clear 
+   clearTable();
 
    const arrivalString = document.getElementById("ArrivalTimes").value;
    const BurstString = document.getElementById("BurstTimes").value;
@@ -102,6 +111,10 @@ function getData(){
    const burst = BurstString.split(' ').map(function(item) {
       return parseInt(item, 10);
    });
+
+   document.getElementById("ArrivalTimes").value = "";
+   document.getElementById("BurstTimes").value = "";
+
 
    // check length 
    const n = burst.reduce((sum,number) => {
@@ -166,6 +179,8 @@ function getData(){
       // Updating time value 
       time += hrrn[loc].bt
 
+      hrrn[loc].ct = hrrn[loc].tt + hrrn[loc].at ;
+
 
       // Calculation of waiting time 
       hrrn[loc].wt = time - hrrn[loc].at - hrrn[loc].bt;
@@ -185,6 +200,8 @@ function getData(){
 }
 
 function getData2(){
+
+   clearTable()
 
    const arrivalString = document.getElementById("ArrivalTimes").value;
    const BurstString = document.getElementById("BurstTimes").value;
@@ -278,6 +295,7 @@ function getData2(){
          if(hrrn[loc].bt ==  hrrn[loc].count){
             hrrn[loc].completed = 1;
          }
+         
          count++;
       }
 

@@ -25,7 +25,7 @@
          <form action="#" class="input__form">
 
             <label for="">Algorithm</label>
-            <select name="" id="" class="input__form__input">
+            <select name="" id="select" class="input__form__input">
                <option value="HRRN">HRRN</option>
                <option value="HRRN_RR">HRRN RR</option>
             </select>
@@ -35,8 +35,25 @@
    
             <label for="">Burst Times</label>
             <input type="text" id="BurstTimes" class="input__form__input" placeholder="e.g. 2 4 6 8">
+
+
+            <script>
+               function button(){
+                  if(document.getElementById('select').value == "HRRN"){
+                     console.log("HRRN");
+                     return getData();
+                  }
+                  else if(document.getElementById('select').value == "HRRN_RR"){
+                     console.log("HRRN_emtpy");
+                     return getData2();
+                  }
+                  else{
+                     console.log("Emtpy");
+                  }
+               }
+            </script>
    
-            <button class="input__form__button" onclick="getData2()"> Solve </button>
+            <button class="input__form__button" onclick="button()" > Solve </button>
    
          </form>
          
@@ -61,7 +78,7 @@
 
             <!-- table body -->
             <tbody id="tbody">
-               <tr>
+               <tr class="tr">
                </tr>
             </tbody>
 

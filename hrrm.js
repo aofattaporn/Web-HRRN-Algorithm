@@ -3,54 +3,6 @@ const c = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 const arrival = [], burst = [];
 let sum_bt = 0, avgtt = 0, avgwt = 0, i = 0, n = 0;
 
-function HRRN(time, sum_bt, hrrn){
-
-   // let time = hrrn[0].at;
-   // Set lower limit to response ratio 
-   let hrr = -9999;
-   let x = 0, loc =0;
-
-   // Response Ratio = (W + S)/S
-   while(time < sum_bt + hrrn[0].at){
-      
-
-      for(let i = 0; i < n; i++){
-
-         // Checking if process has arrived and is Incomplete
-         if(hrrn[i].at <= time && hrrn[i].completed != 1){
-
-            // Calculating Response Ratio 
-            x = ((hrrn[i].bt + (time - hrrn[i].at)) / hrrn[i].bt);
-
-            // hecking for Highest Response Ratio 
-            if(hrr < x){
-
-               // Storing Response Ratio  
-               hrr = x;
-
-               // Storing Location
-               loc = i;
-
-            }
-         }
-      }
-
-
-      // Updating time value 
-      time += hrrn[loc].bt
-
-      hrrn[loc].ct = time;
-
-      // Calculation of waiting time 
-      hrrn[loc].wt = time - hrrn[loc].at - hrrn[loc].bt;
-
-      // Calculation of Turn Around Time 
-      hrrn[loc].tt = time - hrrn[loc].at;
-
-      hrrn[loc].completed = 1;
-
-   }
-}
 
 function createTable(n){
       // creat table to display 
@@ -96,7 +48,7 @@ function clearTable(){
 
 }
 
-function getData(){
+function getDataHRRN(){
 
    // clear 
    clearTable();
@@ -199,7 +151,9 @@ function getData(){
 
 }
 
-function getData2(){
+function getDataHRRN_RR(quantum){
+
+   console.log(quantum);
 
    clearTable()
 
@@ -213,6 +167,9 @@ function getData2(){
    const burst = BurstString.split(' ').map(function(item) {
       return parseInt(item, 10);
    });
+
+   document.getElementById("ArrivalTimes").value = "";
+   document.getElementById("BurstTimes").value = "";
 
    // check length 
    const n = burst.reduce((sum,number) => {
@@ -239,6 +196,8 @@ function getData2(){
       sum_bt += burst[i];
    }
 
+   console.log(hrrn);
+
    // sort by at 
    hrrn.sort((a, b) => {
       return a.at - b.at
@@ -249,6 +208,7 @@ function getData2(){
    // Set lower limit to response ratio 
    let hrr = -9999;
    let x = 0, loc =0;
+
 
    // Response Ratio = (W + S)/S
    while(time < sum_bt + hrrn[0].at){
@@ -273,18 +233,16 @@ function getData2(){
 
             }
          }
-
       }
 
-      let count = 0;
-      while(count <= 5 && hrrn[loc].completed != 1){
-
+      count = 0;
+      while(count < parseInt(quantum)){
          // Updating time value 
          time += 1
 
-         hrrn[loc].ct = time;
+         hrrn[loc].count += 1;
 
-         hrrn[loc].count++;
+         count += 1;
 
          // Calculation of waiting time 
          hrrn[loc].wt = time - hrrn[loc].at - hrrn[loc].bt;
@@ -292,17 +250,18 @@ function getData2(){
          // Calculation of Turn Around Time 
          hrrn[loc].tt = time - hrrn[loc].at;
 
-         if(hrrn[loc].bt ==  hrrn[loc].count){
+         // Calculation of Complete time
+         hrrn[loc].ct = hrrn[loc].tt + hrrn[loc].at ;
+
+         if(hrrn[loc].count == hrrn[loc].bt){
             hrrn[loc].completed = 1;
          }
-         
-         count++;
       }
 
    }
+ 
 
    // create html table
-   
    createTable(n);
 
 

@@ -11,7 +11,6 @@
    <link rel="stylesheet" href="hrrm.css">
 
    <script src="hrrm.js" defer></script>
-
    
 </head>
 <body>
@@ -24,38 +23,72 @@
    
          <form action="#" class="input__form">
 
-            <label for="">Algorithm</label>
-            <select name="" id="select" class="input__form__input">
+            <label>Algorithm</label>
+
+            <select name="" id="select" class="input__form__input" onchange="checkAlgo()">
                <option value="HRRN">HRRN</option>
                <option value="HRRN_RR">HRRN RR</option>
             </select>
             
-            <label for="">Arrival Times</label>
+            <label>Arrival Times</label>
             <input type="text" id = "ArrivalTimes" class="input__form__input" placeholder="e.g. 0 2 4 6">
    
-            <label for="">Burst Times</label>
+            <label>Burst Times</label>
             <input type="text" id="BurstTimes" class="input__form__input" placeholder="e.g. 2 4 6 8">
+            
+         </form>
 
+         <script>
 
-            <script>
-               function button(){
+            function checkAlgo(){
+               if(document.getElementById('select').value == "HRRN"){
+                  if(document.getElementById('qt') != null){
+                     document.querySelector('.Quanntum_time').remove();
+                     document.getElementById('qt').remove();
+                  }
+               }
+               else if(document.getElementById('select').value == "HRRN_RR"){
+
+                  if(document.getElementById('qt') == null){
+                     const label = document.createElement('label');
+                     label.textContent = "Quanntum time"
+                     label.className = "Quanntum_time"
+                     const input = document.createElement('input');
+                     input.type = "text";
+                     input.placeholder = "eg. 2"
+                     input.className = "input__form__input";
+                     input.id = "qt";
+
+                     document.querySelector('form').appendChild(label);
+                     document.querySelector('form').appendChild(input);
+                  }
+               }
+               else{
+                  console.log("Emtpy");
+               }
+            }
+
+            function button(){
+                  // check case 1 
+
                   if(document.getElementById('select').value == "HRRN"){
                      console.log("HRRN");
-                     return getData();
+                     return getDataHRRN();
                   }
                   else if(document.getElementById('select').value == "HRRN_RR"){
-                     console.log("HRRN_emtpy");
-                     return getData2();
+                     console.log("HRRN_RR");
+                     console.log(document.getElementById('qt').value)
+                     return getDataHRRN_RR(document.getElementById('qt').value);
                   }
                   else{
                      console.log("Emtpy");
                   }
                }
-            </script>
-   
-            <button class="input__form__button" onclick="button()" > Solve </button>
-   
-         </form>
+         
+         </script>
+
+         <button class="input__form__button" onclick="button()"> Solve </button>
+
          
       </div>
    

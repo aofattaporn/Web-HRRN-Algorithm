@@ -64,6 +64,7 @@ h1{
 .output{
    width: 50%;
    height: 500px;
+   margin-top: 1rem;
    padding: 2rem;
    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
    border-radius: 25px;

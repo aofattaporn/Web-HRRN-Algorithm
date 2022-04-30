@@ -11,9 +11,6 @@ const createTable=(n)=>{
 
       document.getElementById("table").style.display = "block"; 
 
-      console.log(hrrn);
-
-
       for(let i = 0; i < n; i++){
          
          const tr = document.createElement("tr");
@@ -201,11 +198,6 @@ const getDataHRRN= ()=>{
          // update status compled 
          hrrn[loc].completed = 1;
          }
-         else{
-            console.log(hrrn[loc].bt);
-
-         }
-
       }
 
       for(let i = 0; i < hrrn.length ; i++ ){
@@ -224,17 +216,11 @@ const getDataHRRN= ()=>{
 
 const getDataHRRN_RR=(quantum)=>{
 
-   console.log(quantum);
-
    // clear
    clearTable()
 
    const arrivalString = document.getElementById("ArrivalTimes").value;
    const BurstString = document.getElementById("BurstTimes").value;
-
-   console.log("====== String input =========");
-   console.log(arrivalString);
-   console.log(BurstString);
 
    const arrival = arrivalString.trim().split(' ').map(function(item) {
       return parseInt(item);
@@ -324,7 +310,9 @@ const getDataHRRN_RR=(quantum)=>{
             if(hrrn[i].at <= time && hrrn[i].completed !== 1 && hrrn[i].name != processBF){
 
                // Calculating Response Ratio 
-               x = ((hrrn[i].bt + (time - hrrn[i].at)) / hrrn[i].bt);
+               let wt_temp = (time - hrrn[i].at);
+               if(wt_temp <= 0) wt_temp *= 1
+               x = ((hrrn[i].bt + wt_temp) / hrrn[i].bt);
 
                // hecking for Highest Response Ratio 
                if(hrr < x){
@@ -365,12 +353,8 @@ const getDataHRRN_RR=(quantum)=>{
 
             // check process complete
             if(hrrn[loc].count === hrrn[loc].bt){
-               console.log(hrrn[loc].name);
                hrrn[loc].completed = 1;
                break;
-            }else{
-               console.log(hrrn[loc].name);
-
             }
 
          

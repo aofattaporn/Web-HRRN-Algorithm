@@ -36,6 +36,7 @@
 
 <img alt="plot" src="./res/img5.png" width="700"/>
 
+
 ### How web work
 
 ภานในเว็บจะสามารถใช้ได้สอง function คือ HRRN แบบ `Preemptive` กับ `Non Preemptive`

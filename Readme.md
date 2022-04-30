@@ -43,11 +43,11 @@
 
 แบบ `Non Preemptive`
 
-<img alt="plot" src="./res/img3.png" width="700"/>
+<br><img alt="plot" src="./res/img3.png" width="700"/>
 
 แบบ `Preemptive` จะมี input ให้ใส่ time quantum
 
-<img alt="plot" src="./res/img4.png" width="700"/>
+<br><img alt="plot" src="./res/img4.png" width="700"/>
 
 
 

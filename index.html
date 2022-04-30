@@ -11,6 +11,24 @@
    <link rel="stylesheet" href="hrrm.css">
 
    <script src="hrrm.js" defer></script>
+
+   <script> 
+   const validateForm = () => {
+      console.log("validate");
+
+      // validate function 
+
+      console.log(document.getElementById("select").value);
+      console.log(document.getElementById("ArrivalTimes"));
+      console.log(document.getElementById("BurstTimes"));
+
+      const arrivalString = document.getElementById("ArrivalTimes").value;
+      const BurstString = document.getElementById("BurstTimes").value;
+
+      return false;
+   }
+   
+   </script>
    
 </head>
 <body>
@@ -20,74 +38,80 @@
 
          <h1>Input</h1>
    
-   
-         <form action="#" class="input__form">
+         <!-- form-submit function -->
+         <form action="#" class="input__form" onsubmit="button(event)">
 
             <label>Algorithm</label>
 
-            <select name="" id="select" class="input__form__input" onchange="checkAlgo()">
+            <select name="selector" id="select" class="input__form__input" onchange="checkAlgo()">
                <option value="HRRN">HRRN</option>
                <option value="HRRN_RR">HRRN RR</option>
             </select>
             
             <label>Arrival Times</label>
-            <input type="text" id = "ArrivalTimes" class="input__form__input" placeholder="e.g. 0 2 4 6">
+            <input type="text"  id="ArrivalTimes" name="ArrivalTimes" class="input__form__input" placeholder="e.g. 0 2 4 6">
    
             <label>Burst Times</label>
-            <input type="text" id="BurstTimes" class="input__form__input" placeholder="e.g. 2 4 6 8">
-            
-         </form>
+            <input type="text"  id="BurstTimes" name="BurstTimes" class="input__form__input" placeholder="e.g. 2 4 6 8">
 
-         <script>
+            <div id="TimeQT"></div>
 
-            function checkAlgo(){
-               if(document.getElementById('select').value == "HRRN"){
-                  if(document.getElementById('qt') != null){
-                     document.querySelector('.Quanntum_time').remove();
-                     document.getElementById('qt').remove();
-                  }
-               }
-               else if(document.getElementById('select').value == "HRRN_RR"){
+            <script>
 
-                  if(document.getElementById('qt') == null){
-                     const label = document.createElement('label');
-                     label.textContent = "Quanntum time"
-                     label.className = "Quanntum_time"
-                     const input = document.createElement('input');
-                     input.type = "text";
-                     input.placeholder = "eg. 2"
-                     input.className = "input__form__input";
-                     input.id = "qt";
-
-                     document.querySelector('form').appendChild(label);
-                     document.querySelector('form').appendChild(input);
-                  }
-               }
-               else{
-                  console.log("Emtpy");
-               }
-            }
-
-            function button(){
-                  // check case 1 
-
+               // check algorithm HRRN RR or noRR
+               const checkAlgo=()=>{
                   if(document.getElementById('select').value == "HRRN"){
-                     console.log("HRRN");
-                     return getDataHRRN();
+                     if(document.getElementById('qt') != null){
+                        document.querySelector('.Quanntum_time').remove();
+                        document.getElementById('qt').remove();
+                     }
                   }
                   else if(document.getElementById('select').value == "HRRN_RR"){
-                     console.log("HRRN_RR");
-                     console.log(document.getElementById('qt').value)
-                     return getDataHRRN_RR(document.getElementById('qt').value);
+   
+                     if(document.getElementById('qt') == null){
+                        const label = document.createElement('label');
+                        label.textContent = "Quanntum time"
+                        label.className = "Quanntum_time"
+                        const input = document.createElement('input');
+                        input.type = "text";
+                        input.placeholder = "eg. 2"
+                        input.className = "input__form__input";
+                        input.id = "qt";
+   
+                        document.getElementById('TimeQT').appendChild(label);
+                        document.getElementById('TimeQT').appendChild(input);
+                     }
                   }
                   else{
                      console.log("Emtpy");
                   }
                }
-         
-         </script>
+   
+               const button=(event)=>{
 
-         <button class="input__form__button" onclick="button()"> Solve </button>
+                     event.preventDefault()
+
+                     // check case 1 
+                     if(document.getElementById('select').value == "HRRN"){
+                        console.log("HRRN");
+                        return getDataHRRN();
+                     }
+                     else if(document.getElementById('select').value == "HRRN_RR"){
+                        console.log("HRRN_RR");
+                        console.log(document.getElementById('qt').value)
+                        return getDataHRRN_RR(document.getElementById('qt').value);
+                     }
+                     else{
+                        alert('again pls');
+                     }
+                  }
+            
+            </script>
+   
+            <button class="input__form__button" > Solve </button>
+            
+         </form>
+
 
          
       </div>
@@ -116,6 +140,16 @@
             </tbody>
 
          </table>
+         <div id="container-awwt" class="container-awwt">
+            <h4>average waiting time = </h4>
+            <div id="container-awwt-inner">
+            </div>
+         </div>
+         <div  id="container-awtt" class="container-awtt">
+            <h4>average turn around time = </h4>
+            <div id="container-awtt-inner">
+            </div>
+         </div>
       </div>
    </main>
 

@@ -19,6 +19,7 @@ h1{
    margin: 10px 0px;
 }
 
+/*------------- input ------------- */
 .input{
 
    border: 2px;
@@ -28,11 +29,10 @@ h1{
    width: 300px;
    height: 500px;
 
-   margin: 0 8rem ;
+   margin: 1rem 8rem ;
    padding: 2rem;
    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
    border-radius: 25px;
-
 
 }
 
@@ -49,14 +49,6 @@ h1{
    padding: 0rem 1rem;
 }
 
-.output{
-   width: 50%;
-   height: 500px;
-   padding: 2rem;
-   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-   border-radius: 25px;
-}
-
 .input__form__button{
    background-color: rgb(105, 148, 242);
    color: white;
@@ -64,10 +56,14 @@ h1{
    height: 2rem;
 }
 
-.table{
-   /* display: none; */
+/*------------- output ------------- */
+.output{
+   width: 50%;
+   height: 500px;
+   padding: 2rem;
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+   border-radius: 25px;
 }
-
 
 
 .table td, .table th {
@@ -86,3 +82,70 @@ h1{
   background-color: #04AA6D;
   color: white;
 }
+
+.container-awwt, .container-awtt{
+   margin-top: 1rem;
+   display: none;
+}
+.container-awwt h4, .container-awtt h4{
+   margin-right: 1rem;
+}
+
+@media only screen and (max-width: 1200px) {
+   main{
+      margin: 0rem;
+   }
+   .input{
+
+      border: 2px;
+   
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: auto;
+   
+      margin: 1rem 1rem ;
+      padding: 2rem;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+      border-radius: 25px;
+   
+   }
+
+   .output{
+      margin: 1rem;
+      width: 100%;
+      height: auto;
+      padding: 2rem;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+      border-radius: 25px;
+   }
+   .table{
+      font-size: 16px;
+   }
+
+   table{
+      margin: 0.5rem;
+   }
+   th{
+      width: 0.5rem;
+   }
+
+ }
+
+ @media only screen and (max-width: 600px) {
+
+
+   .output{
+      margin: 1rem;
+      width: 100%;
+      height: auto;
+      padding: 2rem;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+      border-radius: 25px;
+   }
+
+   .table{
+      font-size: 10px;
+   }
+
+ }

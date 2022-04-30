@@ -25,12 +25,15 @@
 
 ### How to compile and run my code.
 1. เข้าไปที่ โฟรด์ที่จักเก็บโปรเจคนี้
+
 <img alt="plot" src="./res/img1.png" width="700"/>
 
 2. คลิ๊กขวาแล้วเลือก Browser ที่ต้องการเปิด
+
 <img alt="plot" src="./res/img2.png" width="700"/>
 
 3. เมื่อเปิดเว็บมาจะมีหน้าตาดั่งนี้ `สามารถเลือกได้ว่าจะใช้ HRRN แบบใด`
+
 <img alt="plot" src="./res/img5.png" width="700"/>
 
 ### How web work
@@ -39,9 +42,11 @@
 โดยจะเลือกได้ผ่าน selector ด้านซ้าย
 
 แบบ `Non Preemptive`
+
 <img alt="plot" src="./res/img3.png" width="700"/>
 
 แบบ `Preemptive` จะมี input ให้ใส่ time quantum
+
 <img alt="plot" src="./res/img4.png" width="700"/>
 
 

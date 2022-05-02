@@ -13,11 +13,11 @@
    <script src="hrrm.js" defer></script>
 
    <script> 
+
    const validateForm = () => {
       console.log("validate");
 
       // validate function 
-
       console.log(document.getElementById("select").value);
       console.log(document.getElementById("ArrivalTimes"));
       console.log(document.getElementById("BurstTimes"));
@@ -61,12 +61,19 @@
                // check algorithm HRRN RR or noRR
                const checkAlgo=()=>{
                   if(document.getElementById('select').value == "HRRN"){
+
+                     document.getElementById("output-container-algo1").style.display = "block"
+                     document.getElementById("output-container-algo2").style.display = "none"
+
                      if(document.getElementById('qt') != null){
                         document.querySelector('.Quanntum_time').remove();
                         document.getElementById('qt').remove();
                      }
                   }
                   else if(document.getElementById('select').value == "HRRN_RR"){
+
+                     document.getElementById("output-container-algo1").style.display = "none"
+                     document.getElementById("output-container-algo2").style.display = "block"
    
                      if(document.getElementById('qt') == null){
                         const label = document.createElement('label');
@@ -85,7 +92,7 @@
                   else{
                      console.log("Emtpy");
                   }
-               }
+            }
    
                const button=(event)=>{
 
@@ -117,7 +124,14 @@
       </div>
    
       <div class="output">
-         <h1>Output</h1>
+         <div class="output-container">
+            <h1>Output</h1>
+            <p>Algorithm : </p>
+            <h5 id="output-container-algo1">HRRN Non-Preemptive</h5>
+            <h5 id="output-container-algo2">HRRN Preemptive</h5>
+
+         </div>
+         
          
          <table id = 'table' class="table" style="display: none;">
 

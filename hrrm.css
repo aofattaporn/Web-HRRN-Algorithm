@@ -70,6 +70,29 @@ h1{
    border-radius: 25px;
 }
 
+.output-container{
+   display: flex;
+   align-items: center;
+
+}
+
+
+.output-container h1{
+   margin-right: 1rem;
+}
+.output-container p{
+   margin-right: 1rem;
+}
+
+#output-container-algo1{
+   display: block;
+   color: #04AA6D;
+}
+#output-container-algo2{
+   display: none;
+   color: #04AA6D;
+}
+
 
 .table td, .table th {
    border: 1px solid #ddd;

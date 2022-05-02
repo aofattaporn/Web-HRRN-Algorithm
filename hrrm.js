@@ -79,9 +79,6 @@ const getDataHRRN= ()=>{
    const arrivalString = document.getElementById("ArrivalTimes").value;
    const BurstString = document.getElementById("BurstTimes").value;
 
-   console.log(arrivalString);
-   console.log(BurstString);
-
    const arrival = arrivalString.trim().split(' ').map((item)=> {
       return parseInt(item);
    });
@@ -90,21 +87,17 @@ const getDataHRRN= ()=>{
       return parseInt(item);
    });
 
-   console.log(arrival);
-   console.log(burst);
-
-
    if(arrival.length != burst.length) {
 
       document.getElementById("ArrivalTimes").value = "";
       document.getElementById("BurstTimes").value = "";
 
-      alert('incorrect');
+      alert('Input incorrect');
 
    }
 
    else if (arrivalString == "" || BurstString == ""){
-      alert('incorrect');
+      alert('Input incorrect');
 
    }
 
@@ -137,8 +130,6 @@ const getDataHRRN= ()=>{
          sum_bt += burst[i];
       }
 
-
-
       hrrn.sort((a, b) => {
          if(a.at > b.at) return 1;
          if(a.at < b.at) return -1;
@@ -154,13 +145,15 @@ const getDataHRRN= ()=>{
       // let x = -1, loc =-1;
 
       // Response Ratio = (W + S)/S
-      while(time <= sum_bt + hrrn[0].at ){
+      while(time <= sum_bt + hrrn[hrrn.length - 1].at){
 
          let hrr = -100;
-         let x = 0, loc =0;
+         let x = 0, loc = -1;
+         let count = 0;
 
          // select next process 
          for(let i = 0; i < burst.length; i++){
+            count++;
 
             // Checking if process has arrived and is Incomplete
             if(hrrn[i].at <= time && hrrn[i].completed !== 1){
@@ -178,26 +171,37 @@ const getDataHRRN= ()=>{
                   loc = i;
 
                }
+
+               fag = true;
             }
          }
 
-         // Updating time value 
-         time += hrrn[loc].bt
+         if(loc === -1 && count === burst.length){
+            console.log(`buff`)
+            time += 1;
+            continue;
+         }
+
+         time += hrrn[loc].bt;      
 
          // Calculation of Completion Time ****** 
          if( hrrn[loc].ct === 0) { 
+
+            console.log(`alive => ${hrrn[loc].at}`);
             
-         hrrn[loc].ct = time ;
+            hrrn[loc].ct = time ;
 
-         // Calculation of waiting time 
-         hrrn[loc].wt = time - hrrn[loc].at - hrrn[loc].bt;
+            // Calculation of waiting time 
+            hrrn[loc].wt = time - hrrn[loc].at - hrrn[loc].bt;
 
-         // Calculation of Turn Around Time 
-         hrrn[loc].tt = time - hrrn[loc].at;
+            // Calculation of Turn Around Time 
+            hrrn[loc].tt = time - hrrn[loc].at;
 
-         // update status compled 
-         hrrn[loc].completed = 1;
+            hrrn[loc].completed = 1;
+
          }
+
+
       }
 
       for(let i = 0; i < hrrn.length ; i++ ){
@@ -239,12 +243,12 @@ const getDataHRRN_RR=(quantum)=>{
       document.getElementById("ArrivalTimes").value = "";
       document.getElementById("BurstTimes").value = "";
 
-      alert('incorrect');
+      alert('Input incorrect');
 
    }
 
    else if (arrivalString == "" || BurstString == "" ){
-      alert('incorrect');
+      alert('Input incorrect');
 
    }
 
@@ -275,8 +279,6 @@ const getDataHRRN_RR=(quantum)=>{
          sum_bt += burst[i];
       }
 
-      console.log(hrrn);
-
 
       // sort by at 
       hrrn.sort((a, b) => {
@@ -284,20 +286,13 @@ const getDataHRRN_RR=(quantum)=>{
          if(a.at < b.at) return -1;
          return 0;
       })
-
-      // print log sort 
-      console.log("print hrrn sort");
-      console.log(hrrn);
-      console.log("-------------");
-
-
       
       let time = hrrn[0].at;
 
       let processBF = "";
 
       // Response Ratio = (W + S)/S
-      while(time < sum_bt + hrrn[0].at){
+      while(time < sum_bt + hrrn[hrrn.length - 1].at){
 
          // Set lower limit to response ratio 
          let hrr = -100;
@@ -333,6 +328,11 @@ const getDataHRRN_RR=(quantum)=>{
          count = 0;
          while(count < parseInt(quantum)){
 
+            if(hrrn[loc].name === 'A'){
+               console.log(`${hrrn[loc].name} => ${hrrn[loc].count}`);
+            }
+
+            if(hrrn[loc].completed !== 1){
 
             time += 1;
 
@@ -350,17 +350,23 @@ const getDataHRRN_RR=(quantum)=>{
 
             // Calculation of Complete time
             hrrn[loc].ct = time;
+            }
+            else{
+               time += 1;
+            }
 
             // check process complete
             if(hrrn[loc].count === hrrn[loc].bt){
                hrrn[loc].completed = 1;
+               if(hrrn[loc].name === 'A'){
+                  console.log(`complte ${hrrn[loc].name} => ${hrrn[loc].count}`);
+               }
                break;
             }
-
-         
          }
       }
 
+      // calcurate average time 
       for(let i = 0; i < hrrn.length ; i++ ){
          avgwt += hrrn[i].wt;
          avgtt += hrrn[i].tt;
